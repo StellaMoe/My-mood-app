@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood & Message Generator</title>
+    <style>
+        /* Modern Dark Mode Styling */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .app-card {
+            background-color: #1e293b;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #334155;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #38bdf8;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        /* Dropdown styling */
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background-color: #0f172a;
+            color: #f8fafc;
+            border: 2px solid #334155;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        select:focus {
+            border-color: #38bdf8;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Message display box */
+        .output-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border-left: 4px solid #a855f7;
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-card">
+        <h1>✨ Vibe Check</h1>
+        
+        <label for="moodSelect">How are you feeling right now?</label>
+        <select id="moodSelect">
+            <option value="stressed">🤯 Stressed / Overwhelmed</option>
+            <option value="tired">🥱 Tired / Low Energy</option>
+            <option value="happy">🥳 Happy / Excited</option>
+            <option value="bored">😐 Bored / Uninspired</option>
+        </select>
+
+        <button onclick="generateMessage()">Get Boost</button>
+
+        <div class="output-box" id="messageOutput">
+            Select a mood and click the button to reveal your message!
+        </div>
+    </div>
+
+    <script>
+        // Database of custom responses
+        const responses = {
+            stressed: [
+                "Take a deep breath. Inhale for 4 seconds, hold for 4, exhale for 4. You can handle this.",
+                "If it won't matter in 5 years, don't spend more than 5 minutes worrying about it.",
+                "Close your eyes and take one step at a time. The world can wait for a minute."
+            ],
+            tired: [
+                "Stretch your arms up high right now! Go grab a glass of water, you might just be dehydrated.",
+                "Listen to your body. If you need a 15-minute power nap, go take one guilt-free.",
+                "Put on your favorite high-energy song and let it loop once to spark some life back into your day!"
+            ],
+            happy: [
+                "Love this energy for you! Write down one thing making you smile right now so you don't forget it.",
+                "Your joy is contagious. Go text a friend or family member a nice compliment out of nowhere!",
+                "Ride the wave! Today is a great day to tackle a creative project you've been putting off."
+            ],
+            bored: [
+                "Boredom is just the blank canvas before creativity. Try drawing something badly for two minutes.",
+                "Go open a random Wikipedia page or learn 3 words in a completely foreign language right now.",
+                "Time for a micro-adventure. Go walk a route outside your home that you've never taken before."
+            ]
+        };
+
+        function generateMessage() {
+            // 1. Get the current selected mood from the dropdown
+            const selectedMood = document.getElementById('moodSelect').value;
+            
+            // 2. Fetch the array of messages for that mood
+            const moodList = responses[selectedMood];
+            
+            // 3. Pick a random message from that specific list
+            const randomIndex = Math.floor(Math.random() * moodList.length);
+            const finalMessage = moodList[randomIndex];
+            
+            // 4. Update the screen text with the random message
+            document.getElementById('messageOutput').innerText = finalMessage;
+        }
+    </script>
+</body>
+</html>
